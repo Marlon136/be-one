@@ -9,9 +9,8 @@ import {
 } from 'class-validator';
 
 export class CreateProductDto {
-  //No va el id porque lo asgina automaticamente la base de datos
   @IsString()
-  @IsNotEmpty() // sobra por las dos condiciones inferiores
+  @IsNotEmpty() 
   @MinLength(3)
   @MaxLength(80)
   name: string;

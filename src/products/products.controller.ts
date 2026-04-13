@@ -28,7 +28,7 @@ export class ProductsController {
 
   // GET /products/:id
   // ParseIntPipe converts the string param to a number and throws 400 if invalid
-  @Get(':id') // : significa parámetro dinámico
+  @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.findOne(id);
   }
@@ -42,7 +42,6 @@ export class ProductsController {
   }
 
   // PATCH /products/:id 
-  // para cambiar alguna información de un registro ya guardado
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
