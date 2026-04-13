@@ -10,9 +10,10 @@ async function bootstrap() {
   // forbidNonWhitelisted: throws an error if unknown properties are sent
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
+      whitelist: true, //strips unknown properties silently
+      forbidNonWhitelisted: true, //throws 400 on unknown properties
       transform: true, // automatically transforms payloads to DTO instances
+                      //auto-convers number/boolean -> string
     }),
   );
 

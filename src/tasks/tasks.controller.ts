@@ -13,8 +13,9 @@
 // Hint: look at products.controller.ts for the full pattern.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { Controller } from '@nestjs/common';
-// TODO: import the decorators you need (Get, Post, Patch, Delete, Param, Body, etc.)
+import { Body, Controller } from '@nestjs/common';
+import { Get, Post, Patch, Delete, Param, 
+          ParseIntPipe, HttpCode, HttpStatus } from '@nestjs/common'; //Param, Body, etc.
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -23,28 +24,30 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
-  // TODO: GET /tasks
+  @Get() // GET /tasks
   findAll() {
     return this.tasksService.findAll();
   }
 
-  // TODO: GET /tasks/:id
-  findOne(id: number) {
+  @Get(':id') // GET /tasks/:id
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.tasksService.findOne(id);
   }
 
-  // TODO: POST /tasks  (status 201)
-  create(createTaskDto: CreateTaskDto) {
+  @Post() //POST /tasks  
+  @HttpCode(HttpStatus.CREATED) // (status 201)
+  create(@Body() createTaskDto: CreateTaskDto) {
     return this.tasksService.create(createTaskDto);
   }
 
-  // TODO: PATCH /tasks/:id
-  update(id: number, updateTaskDto: UpdateTaskDto) {
+  @Patch(':id') //PATCH /tasks/:id
+  update( @Param('id', ParseIntPipe) id: number,
+          @Body() updateTaskDto: UpdateTaskDto) {
     return this.tasksService.update(id, updateTaskDto);
   }
 
-  // TODO: DELETE /tasks/:id
-  remove(id: number) {
+  @Delete(':id') //DELETE /tasks/:id
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.tasksService.remove(id);
   }
 }

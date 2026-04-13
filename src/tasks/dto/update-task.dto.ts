@@ -6,8 +6,20 @@
 //   - Re-use the same validators but add @IsOptional() to each field
 // ─────────────────────────────────────────────────────────────────────────────
 
-// TODO: import validators from 'class-validator'
+import { IsEnum, IsOptional, MaxLength, MinLength } from "class-validator";
+import { TaskStatus } from "../tasks.service";
 
 export class UpdateTaskDto {
-  // TODO: implement the DTO (copy fields from CreateTaskDto and make them optional)
+  
+    @IsOptional()
+    @MinLength(3)
+    @MaxLength(100)
+    title?: string;
+  
+    @IsOptional()
+    @MaxLength(300)
+    description?: string;
+  
+    @IsOptional()
+    status?: TaskStatus;
 }

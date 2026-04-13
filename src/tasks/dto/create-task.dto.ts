@@ -10,13 +10,22 @@
 // Import what you need from 'class-validator' and add the decorators below.
 // ─────────────────────────────────────────────────────────────────────────────
 
+import { IsEnum, IsOptional, MaxLength, MinLength } from "class-validator";
+
+const TaskStatus = ['pending', 'in-progress', 'done'] as const;
+type TaskStatus = (typeof TaskStatus)[number];
+
 export class CreateTaskDto {
-  // TODO: add validator decorators
+  @MinLength(3)
+  @MaxLength(100)
   title: string;
 
-  // TODO: add validator decorators
+  @IsOptional()
+  @MaxLength(300)
   description?: string;
 
-  // TODO: add validator decorators
-  status?: 'pending' | 'in-progress' | 'done';
+  
+  @IsEnum(TaskStatus)
+  @IsOptional()
+  status?: TaskStatus;
 }
